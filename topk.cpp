@@ -117,8 +117,17 @@ static unsigned char* open_file(const std::string &path) {
 }
 
 /*
- * 设计思路：假设一个特定的硬件环境：单机+单核+1G
- * 如果是多核，可以考虑把数据按照核数等分，然后多线程执行，然后汇总结果。
+ * 执行步骤：
+ * 1. Linux下使用mmap映射待分析的URL文件。
+ * 2. 循环逐行读入URL。
+ * 3. 对读入的URL做hash_map统计。
+ * 4. 当读入的文件大小超过输入指定的每次读入的长度后，结束这次hash_map统计。
+ * 5. 如果是第一个分片，看下一步。如果不是第一个分片，那么topk_vec有内容，把它和当前的hash_map合并统计，不过这里不是++，而是+n，合并后清空topk_vec。
+ * 6. 把hash_map统计的结果建立大小为topk+1的最小堆，统计URL出现的次数为比较键值。
+ * 7. 把最小堆导出到一个vector容器中，假设叫topk_vec，也是升序。 
+ * 8. 如果文件内容没有读完，跳到第2步。否则结束循环。
+ * 9. 对topk_vec逆序，使之降序排列。 
+ * 10. 输出topk_vec。
  */
 int main(int argc,char **argv) {
 	if (argc != 4) {
