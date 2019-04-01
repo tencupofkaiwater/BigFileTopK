@@ -135,6 +135,8 @@ int main(int argc,char **argv) {
 	
 	bool skip_out = true;
 	UrlVector topk_vec;
+	// 预设长度，长度固定为topk + 1
+	topk_vec.reserve(topk + 1);
 	UrlMinHeap url_heap;
 
 	while (1) {
@@ -196,7 +198,9 @@ int main(int argc,char **argv) {
 	int i = 1;
 	for (int i = 0; i < topk; i++) {
 		std::cout << "TOP" << i + 1 << " " << topk_vec[i].second << " " << topk_vec[i].first << std::endl;
-	}	
+	}
+
+	std::cout << "The run time is:" << (double)clock() /CLOCKS_PER_SEC<< "s" << std::endl;
 
 	return 0;
 }
