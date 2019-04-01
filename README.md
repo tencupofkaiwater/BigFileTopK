@@ -21,7 +21,7 @@
 
 ### 编译
 ```
-# g++ topk.cpp -std=c++11 -o topk
+# g++ topk.cpp -O2 -std=c++11 -o topk
 ```
 ### 执行
 假设输入的URL文件名为url, 统计前100个, 可用内存大小为1G。
