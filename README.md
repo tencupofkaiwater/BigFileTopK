@@ -99,3 +99,5 @@ TOP9 587520 http://www.joy.cn/sport/videoSport?resourceId=60236937
 TOP10 587520 http://movie.mtime.com/80706/trailer/22259.html
 The run time is:21.75s
 ```
+
+注意：以上算法是错误的，不能解决问题，如果某一个分片中某一个URL很少，但是在后续的分片中却很多，如果第一个分片中就被丢弃，最后的结果是错误的。
